@@ -10,19 +10,23 @@ def crear_histograma(marcas_clase, frecuencias):
     plt.title("Histograma", fontsize=25)
     plt.show()
 
-def crear_diagrama_barras(marcas_clase, frecuencias):
+def crear_diagrama_barras(marcas_clase, frecuencias, clases):
     plt.figure(figsize=(12, 6))
-    
-    plt.barh(marcas_clase, frecuencias,
+
+    # Combina las marcas de clase con los nombres de las clases
+    etiquetas = [f"{clase} ({marca})" for clase, marca in zip(clases, marcas_clase)]
+
+    plt.barh(etiquetas, frecuencias,
              height=0.75, edgecolor="k",
              color=["#EF90F1", "#90E7F1", "#D8B4EF", "#C7EFB4", "#EFB4C7", "#EFE4B4"])
-    
-    plt.yticks(marcas_clase, fontsize=15)
+
+    plt.yticks(etiquetas, fontsize=15)
     plt.xlabel("Frecuencias", fontsize=20)
-    plt.ylabel("Marcas de clase", fontsize=20)
+    plt.ylabel("Clase y Marca de clase", fontsize=20)
     plt.title("Diagrama de barras", fontsize=25)
     plt.grid()
     plt.show()
+
 
 def crear_poligono_frecuencias(marcas_clase, frecuencias):
     datos_x = [0] + list(marcas_clase) + [marcas_clase[-1] + (marcas_clase[1] - marcas_clase[0])]
@@ -41,17 +45,22 @@ def crear_poligono_frecuencias(marcas_clase, frecuencias):
 
     plt.show()
 
-def crear_grafico_pastel(frecuencias, marcas_clase):
+def crear_grafico_pastel(frecuencias, marcas_clase, clases):
     plt.figure(figsize=(8, 8))
-    plt.pie(frecuencias, 
-            counterclock=False, 
-            startangle=90, 
-            autopct="%0.1f%%", 
-            pctdistance=0.8, 
-            colors=["#EF90F1", "#90E7F1", "#D8B4EF", "#C7EFB4", "#EFB4C7", "#EFE4B4"], 
-            labels=marcas_clase)
+
+    # Combina las marcas de clase con los nombres de las clases
+    etiquetas = [f"{clase} ({marca})" for clase, marca in zip(clases, marcas_clase)]
+
+    plt.pie(frecuencias,
+            counterclock=False,
+            startangle=90,
+            autopct="%0.1f%%",
+            pctdistance=0.8,
+            colors=["#EF90F1", "#90E7F1", "#D8B4EF", "#C7EFB4", "#EFB4C7", "#EFE4B4"],
+            labels=etiquetas)
     plt.title("Gráfico de pastel", fontsize=20)
     plt.show()
+
 
 def crear_ojiva(marcas_clase, frecuencias):
     frec_acumulada = [sum(frecuencias[:i+1]) for i in range(len(frecuencias))]
